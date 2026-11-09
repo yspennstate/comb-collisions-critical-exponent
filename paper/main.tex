@@ -1,0 +1,382 @@
+\documentclass[11pt]{amsart}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,microtype,amsmath,amssymb,amsthm,mathtools,enumitem}
+\usepackage[margin=1.1in]{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage{xurl}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\numberwithin{equation}{section}
+
+\newcommand{\Comb}{\operatorname{Comb}}
+\newcommand{\PP}{\mathbb{P}}
+\newcommand{\EE}{\mathbb{E}}
+\newcommand{\Z}{\mathbb{Z}}
+
+\hypersetup{pdftitle={Infinitely many collisions on random combs at the critical exponent},pdfauthor={Yitzchak Shmalo}}
+
+\title[Collisions on random combs at the critical exponent]{Infinitely many collisions on random comb graphs at the critical exponent $\gamma=1/3$}
+\author{Yitzchak Shmalo}
+\address{Einstein Institute of Mathematics, The Hebrew University of Jerusalem, Jerusalem, Israel}
+\email{yitzchak.shmalo@gmail.com}
+\date{November 2026}
+\subjclass[2020]{60J10, 05C81, 60K37}
+\keywords{random walk, comb graph, collisions, random environment, heat kernel}
+
+\begin{document}
+\begin{abstract}
+Let $\Comb(\Z,H)$ be the comb obtained by attaching to each $x\in\Z$ a tooth of height $H_x$, where the $H_x$ are i.i.d.\ with $\PP(H_x>z)\sim Cz^{-\gamma}$. De Ambroggio, Ng, Nitzschner and Scali proved that two independent simple random walks on a typical such comb collide infinitely often almost surely when $\gamma>1/3$ and only finitely often when $\gamma<1/3$, and conjectured infinitely many collisions at $\gamma=1/3$. We prove this conjecture. At the critical exponent the expected number of collisions in one scale is of order one while its second moment is at most of order $\log N$, so the Paley--Zygmund inequality gives a collision in the $m$-th dyadic scale with conditional probability at least $c/m$, and L\'evy's conditional Borel--Cantelli lemma applies because $\sum 1/m=\infty$. The main step is an annealed bound, uniform in the scale, on the expected number of collisions at small times, which replaces the polynomial losses in the heat-kernel estimates of the supercritical proof by bounded factors.
+\end{abstract}
+\maketitle
+
+\section{Introduction}\label{sec:intro}
+A connected, locally finite graph has the \emph{infinite collision property} if two independent discrete-time simple random walks started at the same vertex are at the same vertex at the same time infinitely often, almost surely; otherwise, by a $0$--$1$ law, they meet only finitely often almost surely, and neither alternative depends on the starting vertex \cite{BPS}. Recurrence is not enough: Krishnapur and Peres \cite{KP} showed that the comb $\Comb(\Z,\infty)$, with an infinite tooth at every site, has the finite collision property.
+
+For a profile $H\colon\Z\to[0,\infty)$ the comb $\Comb(\Z,H)$ has vertex set $\{(x,\ell)\in\Z\times\{0,1,2,\dots\}:\ell\le H_x\}$, the backbone edges $\{(x,0),(x+1,0)\}$ and the tooth edges $\{(x,\ell),(x,\ell+1)\}$. De Ambroggio, Ng, Nitzschner and Scali \cite{DNNS} studied the random profile in which the $H_x$ are i.i.d.\ with
+\begin{equation}\label{eq:tail}
+\PP(H_0>z)\sim Cz^{-\gamma}\qquad(z\to\infty),\quad \gamma\in(0,1],
+\end{equation}
+and proved that for $\PP$-almost every profile the comb has the infinite collision property when $\gamma>1/3$ and the finite collision property when $\gamma<1/3$. They conjectured that the boundary case $\gamma=1/3$ belongs to the first regime. We prove this.
+
+\begin{theorem}\label{thm:main}
+Let the $H_x$ be i.i.d.\ and satisfy \eqref{eq:tail} with $\gamma=1/3$. For $\PP$-almost every profile and all vertices $v,w$ of $\Comb(\Z,H)$ at even graph distance, two independent simple random walks started at $v$ and $w$ collide infinitely often almost surely. In particular $\Comb(\Z,H)$ has the infinite collision property.
+\end{theorem}
+
+The comb is a tree, hence bipartite, and each step of a simple random walk changes its colour class; two walks started at odd distance are therefore never at the same vertex at the same time, and the parity condition cannot be dropped. Its other role is in the restart argument: the distance between the two walks keeps its parity, so the starting positions of every later scale again satisfy it.
+
+\subsection*{Strategy}
+We follow the second moment method of \cite{DNNS}. On the $m$-th dyadic scale, $N=2^m$, let $H'_N$ count the collisions on the backbone segment $[-N,N]\times\{0\}$ during a time window of order $N^3$, before the walks leave a rectangle of width of order $N$. The first moment bound $\EE H'_N\ge c$ of \cite{DNNS} holds at $\gamma=1/3$ without change. The second moment is where the critical case differs. In \cite{DNNS} the expected number of collisions of two walks started together, summed over times $k\le N^{8\delta_4}$, is bounded by $CN^{8\delta_4}$, uniformly in the starting site. This is absorbed by a factor $N^{(3\gamma-1)/(\gamma+1)}$, which tends to infinity when $\gamma>1/3$ but equals $1$ at $\gamma=1/3$. We replace the uniform bound by an average over the starting site. Expanding the second moment over pairs of collision times, the kernels of the two walks at the earlier time are bounded uniformly in the site, so only the spatial average of the short-time collision sum enters. That average is bounded in Section~\ref{sec:lemmaA} by an annealed estimate together with a concentration argument over independent blocks of the environment. The result is $\EE[(H'_N)^2]\le C\log N$, so the Paley--Zygmund inequality gives a collision in scale $m$ with conditional probability at least $c/m$, given the past at the exit time of the previous scale. Since $\sum_m 1/m=\infty$, L\'evy's extension of the Borel--Cantelli lemma gives infinitely many collisions.
+
+Section~\ref{sec:prelim} collects the estimates taken from \cite{DNNS}, with the ranges in which we use them. Section~\ref{sec:basic} contains three elementary bounds, Section~\ref{sec:lemmaA} the annealed bound at small times, and Section~\ref{sec:proof} the proof of Theorem~\ref{thm:main}.
+
+\section{Notation and the estimates taken from the supercritical proof}\label{sec:prelim}
+Write $X,Y$ for the two walks, $P^\omega_{v,w}$ for their joint law on the comb with profile $\omega=(H_x)$, and $q_n(v,u)=P^\omega_v(X_n=u)$. A vertex $(x,0)$ has degree at most $3$; the heat kernel $p_n(v,u)=q_n(v,u)/\deg(u)$ of \cite{DNNS} differs from $q_n$ by at most this factor, and every bound below is stated for $q_n$. Throughout $\gamma=1/3$, so that $4/(\gamma+1)=3$, $(3-\gamma)/4=2/3$ and $(\gamma+1)/4=1/3$: the natural time scale of the backbone interval $[-N,N]$ is $N^3$, the on-diagonal heat kernel at an even time $n$ is of order $n^{-2/3}$ (at odd times it vanishes), and in time $n$ the walk travels a backbone distance of order $n^{1/3}$.
+
+\subsection{Quenched estimates}
+Section~4 of \cite{DNNS} proves the following for every $\gamma\in(0,1)$, in particular at $\gamma=1/3$, for $\PP$-a.e.\ $\omega$ and $N$ larger than a threshold depending on $\omega$. Positive constants $\delta_1,\dots,\delta_4$ may be taken as small as we please, and $c_i,C_i$ do not depend on $N$ or $\omega$.
+\begin{enumerate}[label=(E\arabic*),leftmargin=*]
+\item\label{E:exit} (Lemma~4.7) For a backbone interval of half-width $m$ with $N^{\delta_1}\le m\le N$, centred at $x_1$ with $|x_1|\le N$, and $t\in(0,1]$, the exit time $\tau_{x_1,m}$ satisfies $P^\omega_{(x_1,0)}(\tau_{x_1,m}\le tm^3)\le C_7\exp(-c_7t^{-\beta})$ for some $\beta>0$.
+\item\label{E:diag} (Lemma~4.10) $q_n((x_1,0),(x_1,0))\le c_{10}n^{-2/3}$ for $|x_1|\le N$ and $n\ge N^{\delta_3}$.
+\item\label{E:off} (Proposition~4.11) $q_n((x_1,0),(y_1,0))\le c_{11}|y_1-x_1|^{-2}$ for $|x_1|,|y_1|\le N$, $|y_1-x_1|\ge n^{1/3}$ and $n\ge N^{\delta_3}$.
+\item\label{E:gen} (Lemma~4.12) For every vertex $x=(x_1,h)$ with $|x_1|\le N$ and backbone $y=(y_1,0)$ with $|y_1|\le N$, $q_n(x,y)\le c_{12}n^{-2/3}e^{-h^2/(c_{12}n)}$ for $n\ge N^{\delta_4}$.
+\item\label{E:first} (Lemma~4.13) There are $0<c_l<c_u$, $c_{13}\ge c_u$ and $c_{14}>0$ such that, for starts $v,w$ in the rectangle of \cite{DNNS} at even distance, the expected number of collisions on $[-N,N]\times\{0\}$ at times in $[c_lN^3,c_uN^3]$, before either walk leaves the enlarged rectangle, is at least $c_{14}$.
+\end{enumerate}
+Estimates \ref{E:exit}--\ref{E:gen} are the upper chain and \ref{E:first} is the lower bound. The value $\gamma>1/3$ is used in \cite{DNNS} only once, in bounding the small-time part of the second moment (their (4.120)); everything listed here holds at $\gamma=1/3$. We use these estimates only for times $n\le C_0N^3$ with a fixed $C_0$, and with all centres, intervals and rectangles inside $[-AN,AN]$ for a fixed $A$ depending only on $C_0$ and the fixed enlargements below; Section~4 of \cite{DNNS} applied with $AN$ in place of $N$ then changes only the constants and the almost sure threshold. In several places the published argument needs a repair before it can be quoted in this form. The repairs do not change the statements, apart from the ranges noted, and we record them now.
+
+\subsection{Repairs}
+\emph{The exit estimate for very small $t$.} Case~2 of Proposition~4.6 of \cite{DNNS}, on which \ref{E:exit} rests, bounds a probability at $t=n^{-\varepsilon}$ by $\exp(-cn^{\varepsilon/108})$ (this is (4.63) at $\gamma=1/3$) and extends this to all smaller $t$ in the form $\exp(-ct^{-\beta})$. Monotonicity gives the first bound for smaller $t$ but not the second. A cutoff closes the gap. On the event $O_n(x)$ of \cite{DNNS} each of the two half-intervals of length $\ell(n)$ next to $x$ contains a deep tooth. A walk leaving $[x-n,x+n]$ crosses one of them, so the local time it spends on deep teeth is at least $1$, and the event in question is empty for $t<t_*(n)=n^{-2/((\gamma+1)(1/2-\alpha))}$. For $t_*(n)\le t<n^{-\varepsilon}$ one has $\exp(-cn^{\varepsilon/108})\le\exp(-ct^{-\beta})$ once $\beta\le\varepsilon(1/2-\alpha)/162$. Proposition~4.6 only asserts some $\beta>0$, so we take $\beta$ this small.
+
+\emph{The coarse walk in Case~2.} In (4.53) of \cite{DNNS} the time $W_{k+1}$ is the next visit to $F=3\ell(n)\Z$ after $W_k$, which may be a return to $X_{W_k}$; for spacing at least $3$ such a return has probability at least $1/2$, so $X_{W_k}/(3\ell(n))$ is not a simple random walk and a recorded step need not cross a deep tooth. We let $W_{k+1}$ be the first visit after $W_k$ to $F\setminus\{X_{W_k}\}$. The recorded positions then form a simple symmetric random walk on $F$, each recorded step crosses a middle subinterval containing a selected deep root and so completes an excursion into a deep tooth, and (4.57)--(4.63) go through with these completed excursions in place of the original steps. Finally, the proof of Lemma~4.7 bounds a sum of two stretched exponentials by the one with the larger power; a sum is bounded only with the smaller power, and we use $\beta$ no larger than the smaller of the two, which is all that \ref{E:exit} asserts.
+
+\emph{The Green kernel in Lemma~4.10.} In the bound $p_n(x,x)\le2g_A(x,x)/(nP_x(\tau_{A^c}\ge n))$, with $A$ the backbone ball of radius $\ell$ about $x$ together with its teeth, the normalized Green kernel $g_A(x,x)$ equals the effective resistance $R_{\rm eff}(x,A^c)$. Since teeth are dead ends, this is the resistance of two backbone paths of length $\ell+1$ in parallel, namely $(\ell+1)/2$. It is deterministic, and the only random input of \ref{E:diag} is \ref{E:exit}.
+
+\emph{The off-diagonal bound.} The walks are not lazy, so the same-time Cauchy--Schwarz step (4.100) in the proof of Proposition~4.11 of \cite{DNNS} pairs a time with the wrong parity. Since that proof also uses the exit estimate on a symmetric disc, which the walk may leave on the far side, we give the argument at $\gamma=1/3$ in full.
+
+\begin{lemma}\label{lem:off}
+Estimate \ref{E:off} holds at $\gamma=1/3$, with the same thresholds as \ref{E:exit} and \ref{E:diag}.
+\end{lemma}
+
+\begin{proof}
+Let $x=(x_1,0)$, $y=(y_1,0)$, $d=|y_1-x_1|\ge n^{1/3}$ and $z=(\lfloor(x_1+y_1)/2\rfloor,0)$. Teeth are dead ends, so every path from $x$ to $y$ passes through $z$; let $\sigma_x$ be the first visit to $z$. Paths with $\sigma_x\le n/2$ contribute at most $P_x(\sigma_x\le n/2)\sup_{n/2\le r\le n}q_r(z,y)$ by the strong Markov property. On a path with $\sigma_x>n/2$ the last visit to $z$ is after time $n/2$, so the reversed path, which runs from $y$ to $x$, visits $z$ before time $n/2$. By reversibility, $\deg(x)P_x(\text{path})=\deg(y)P_y(\text{reversed path})$, these paths contribute at most $3P_y(\sigma_y<n/2)\sup_{n/2\le r\le n}q_r(z,x)$.
+
+Reaching $z$ from $x$ needs a backbone displacement of at least $\lfloor d/2\rfloor$, and $N^{\delta_1}\le\lfloor d/2\rfloor\le N$ for large $N$, because $d\ge n^{1/3}\ge N^{\delta_3/3}$ and we take $\delta_1<\delta_3/3$; so \ref{E:exit} gives
+\[
+P_x(\sigma_x\le n/2)\le C_7\exp\bigl(-c(d^3/n)^{\beta}\bigr),
+\]
+and likewise at $y$. For the kernel factor let $r\in[n/2,n]$, $a=\lfloor r/2\rfloor$ and $b=\lceil r/2\rceil$. By the Chapman--Kolmogorov equation and the Cauchy--Schwarz inequality in $\ell^2(\deg)$,
+\[
+\frac{q_r(z,y)}{\deg(y)}=\sum_u\frac{q_a(z,u)}{\deg(u)}\,\frac{q_b(u,y)}{\deg(y)}\,\deg(u)\le\Bigl(\frac{q_{2a}(z,z)}{\deg(z)}\cdot\frac{q_{2b}(y,y)}{\deg(y)}\Bigr)^{1/2},
+\]
+and \ref{E:diag} at the even times $2a,2b\ge n/2-1$ gives $q_r(z,y)\le3c_{10}n^{-2/3}$. Here Lemma~4.10 is taken with its cutoff below $\delta_3$, so that $n/2-1$ is in range. Altogether
+\[
+q_n(x,y)\le Cn^{-2/3}e^{-c(d^3/n)^\beta}=Cd^{-2}\,(d^3/n)^{2/3}e^{-c(d^3/n)^\beta}\le C'd^{-2},
+\]
+since $u^{2/3}e^{-cu^\beta}$ is bounded on $u\ge1$.
+\end{proof}
+
+\emph{Starting up a tooth.} The general-start bound \ref{E:gen} is needed because, at the end of a scale, a walk may sit inside a tooth. Its proof in \cite{DNNS} bounds the hitting-time sum (4.108) in a way that fails for small starting heights: from height $1$ the walk reaches the root at time $1$ with probability $1/2$, which already gives a term of order $n^{-2/3}$, while the printed bound is of order $n^{-7/6}$. The statement itself is correct.
+
+\begin{lemma}\label{lem:gen}
+Estimate \ref{E:gen} holds at $\gamma=1/3$ for $n\ge N^{\delta_4}$, provided the cutoff $\delta_3$ of \ref{E:diag} satisfies $\delta_3<\delta_4/2$.
+\end{lemma}
+
+\begin{proof}
+Let $x=(x_1,h)$ with $0<h\le H=\lfloor H_{x_1}\rfloor$; the case $h=0$ is \ref{E:diag} together with Lemma~\ref{lem:off}. Let $T_0$ be the hitting time of the root $(x_1,0)$. The walk leaves the tooth only through the root, so
+\begin{equation}\label{eq:C31}
+q_n(x,y)=\sum_{s=0}^{n}P_x(T_0=s)\,q_{n-s}\bigl((x_1,0),y\bigr).
+\end{equation}
+The height of the walk on $\{0,\dots,H\}$ moves by $\pm1$ with equal probabilities in the interior and steps down surely from $H$. It is therefore $f(S)$, where $S$ is a simple random walk on $\Z$ from $h$ and $f(u)=\min(u,2H-u)$, run until $S$ hits $\{0,2H\}$. So $T_0$ is the hitting time of $\{0,2H\}$ by $S$, whose two endpoints lie at distances $h$ and $2H-h\ge h$ from the start. Doob's inequality for $e^{\lambda S}$ on each side, and the hitting-time theorem with the local bound $P(S_s=u)\le Cs^{-1/2}e^{-u^2/(cs)}$, give
+\begin{equation}\label{eq:T0}
+P_x(T_0\le t)\le2e^{-h^2/(2t)},\qquad P_x(T_0=s)\le Cs^{-1}e^{-h^2/(2cs)}.
+\end{equation}
+At the root, $q_j((x_1,0),y)\le Cj^{-2/3}$ for $j\ge N^{\delta_3}$ by \ref{E:diag}, Lemma~\ref{lem:off} and the Cauchy--Schwarz step above, and $q_j\le C(1+j)^{-1/2}$ for all $j\ge0$ by Lemma~\ref{lem:cap}. Split \eqref{eq:C31} into three ranges.
+\begin{itemize}[leftmargin=*]
+\item For $s\le n/2$ we have $n-s\ge n/2\ge N^{\delta_3}$, so this range contributes at most $C n^{-2/3}P_x(T_0\le n/2)\le Cn^{-2/3}e^{-h^2/n}$.
+\item For $n/2<s\le n-2\lfloor n^{1/2}\rfloor$ we have $j=n-s\ge n^{1/2}\ge N^{\delta_3}$, using $\delta_3<\delta_4/2$. This range contributes at most $Cn^{-1}e^{-h^2/(2cn)}\sum_{j\le n/2}j^{-2/3}\le Cn^{-2/3}e^{-h^2/(2cn)}$.
+\item For $n-2\lfloor n^{1/2}\rfloor<s\le n$, the cap gives at most $Cn^{-1}e^{-h^2/(2cn)}\sum_{j<2n^{1/2}}(1+j)^{-1/2}\le Cn^{-3/4}e^{-h^2/(2cn)}$.
+\end{itemize}
+Summing the three ranges gives $q_n(x,y)\le c_{12}n^{-2/3}e^{-h^2/(c_{12}n)}$.
+\end{proof}
+
+\emph{The lower bound.} For $x_1\in\Z$, $m\ge1$ and $h\ge0$ let $R^{x_1}_m(h)$ be the set of vertices $(y_1,k)$ with $|y_1-x_1|\le m$ and $0\le k\le h$, write $R_m(h)=R^0_m(h)$, and let $q^{R}_n$ be the transition probability of the walk killed on leaving $R$. For $a\ge1$ put $B_a=R_{aN}((aN)^{3/2})$. The starts will range over $S_N=R_{2N-1}((2N)^{3/2})$, which is the rectangle $R_{2N}((2N)^{3/2})$ in the notation of \cite{DNNS} (where the backbone inequality is strict) and contains the start window of \ref{E:first}; the larger set is needed when the walks are restarted in the proof of Theorem~\ref{thm:main}. Estimate \ref{E:first} is deduced in \cite{DNNS} from a lower bound for the killed kernel (Lemma~4.9), which combines the hitting estimate of Lemma~4.5 with the on-diagonal lower bound of Lemma~4.8. Two points need care.
+
+First, Lemma~4.8 is stated for every $n\ge N^{\delta_2}$ on a fixed box, which cannot hold for $n$ much larger than $N^3$, since a kernel killed on a finite set decays exponentially in time. Its proof works on a box of backbone radius of order $n^{1/3}$ about the target, and the killed kernel is monotone in the domain, so it gives the following: for every $C_u>0$ there is $\tilde b(C_u)$ such that for $b\ge\tilde b(C_u)$ and every backbone vertex $w=(w_1,0)$ with $|w_1|\le N$,
+\begin{equation}\label{eq:L48}
+q^{B_b}_{2j}(w,w)\ge c_8(2j)^{-2/3},\qquad N^{\delta_2}\le 2j\le C_uN^3,
+\end{equation}
+with $c_8$ not depending on $C_u$. Only this backbone case is used. Second, in Lemma~4.9 the window constant $c_l$ is chosen after the enlargement of the rectangle and grows with it, while the enlargement must contain a box of backbone radius of order $c_l^{1/3}N$; in that order the constants are circular. We separate the box in which the walk must reach its target from the box on which it is killed, and choose the constants in the order $d$, $c_l$, $c_u$, $b$.
+
+\begin{lemma}\label{lem:low}
+There are constants $0<c_l<c_u=2c_l$, $b\ge1$ and $c_{15}>0$ such that, for $\PP$-a.e.\ $\omega$ and $N$ beyond an a.s.\ finite threshold, for all $v\in S_N$, all backbone $w=(w_1,0)$ with $|w_1|\le N$, and all $n\in[c_lN^3,c_uN^3]$ with $n-d(v,w)$ even,
+\[
+q^{B_b}_n(v,w)\ge c_{15}N^{-2}.
+\]
+\end{lemma}
+
+\begin{proof}
+Let $\tau_w$ be the hitting time of $w$ and $\tau_A$ the exit time from a set $A$. Lemma~4.5 of \cite{DNNS}, applied with $2N$ in place of $N$, bounds $P_v(\tau_w>\tau_{B_{2a}})$ by $1/\varrho(a)$ for $v\in S_N$ and $w\in R_{2N}(2N)$, with $\varrho(a)\to\infty$; since the probability decreases as the box grows, there is an integer $d\ge2$ with $P_v(\tau_w<\tau_{B_d})\ge3/4$ for all $v$ and $w$ as in the statement. Once $d$ is fixed we bound $E_v[\tau_w\wedge\tau_{B_d}]$ in two stages. Let $v=(v_1,h)$. Until it reaches $(v_1,0)$ the walk moves on the tooth at $v_1$, a path of length at most $L=(dN)^{3/2}+1$ inside $B_d$ (reflected at the top if the tooth is shorter); by the gambler's ruin estimate the expected time to reach $(v_1,0)$ or leave $B_d$ is at most $2L^2\le8d^3N^3$. From $(v_1,0)$, the commute-time identity for the walk on $B_d$ with its exterior boundary glued to a single vertex, together with the volume bound $|B_d|\le C(d)N^2$ used in the proof of Lemma~4.9 and the resistance bound $R_{\rm eff}((v_1,0),w)\le|v_1-w_1|\le3N$, gives expected time at most $C(d)N^3$ to reach $w$ or leave $B_d$. By the strong Markov property, $E_v[\tau_w\wedge\tau_{B_d}]\le C'(d)N^3$; we rename $C'(d)$ as $C(d)$. With $c_l=4C(d)$, Markov's inequality gives $P_v(\tau_w\wedge\tau_{B_d}>c_lN^3)\le1/4$, hence
+\[
+P_v\bigl(\tau_w\le c_lN^3,\ \tau_w<\tau_{B_d}\bigr)\ge\tfrac12 .
+\]
+Put $c_u=2c_l$, and only now take $b\ge\max(d,\tilde b(c_u))$, so that $B_d\subset B_b$ and \eqref{eq:L48} holds with $C_u=c_u$.
+
+Let $n\in[c_lN^3,c_uN^3]$ with $n-d(v,w)$ even. Since the comb is bipartite, $\tau_w-d(v,w)$ is even, so $n-\tau_w$ is even. By the strong Markov property at $\tau_w$,
+\[
+q^{B_b}_n(v,w)\ge\sum_{s\le c_lN^3}P_v\bigl(\tau_w=s,\ \tau_w<\tau_{B_d}\bigr)\,q^{B_b}_{n-s}(w,w).
+\]
+The killed chain is reversible with respect to $\deg$, so $q^{B_b}_{2j}(w,w)=\deg(w)\sum_i\lambda_i^{2j}\phi_i(w)^2$ for an orthonormal eigenbasis $(\phi_i)$ of $\ell^2(B_b,\deg)$ with real eigenvalues $\lambda_i\in[-1,1]$; in particular the even diagonal is non-increasing in $j$. Since $n-s$ is even and at most $2\lfloor n/2\rfloor$, and $N^{\delta_2}\le2\lfloor n/2\rfloor\le c_uN^3$ for large $N$, \eqref{eq:L48} gives $q^{B_b}_{n-s}(w,w)\ge c_8(c_uN^3)^{-2/3}$. Hence $q^{B_b}_n(v,w)\ge\frac12c_8c_u^{-2/3}N^{-2}$.
+\end{proof}
+
+We use \ref{E:first} in the following form. Let $c_{13}\ge c_u$, let $v,w\in S_N$ with $d(v,w)$ even, and let $\theta$ be the first time at which $X$ or $Y$ leaves $B_b$. The two walks are independent, so the expected number of collisions at sites $(x,0)$, $|x|\le N$, at times $n\in[c_lN^3,c_uN^3]$ with $n<\theta$ is
+\[
+\sum_{c_lN^3\le n\le c_uN^3}\ \sum_{|x|\le N}q^{B_b}_n\bigl(v,(x,0)\bigr)\,q^{B_b}_n\bigl(w,(x,0)\bigr).
+\]
+Since $d(v,w)$ is even, $d(v,(x,0))$ and $d(w,(x,0))$ have the same parity, so Lemma~\ref{lem:low} bounds both factors from below for the same half of the times in the window. The sum is therefore at least $(2N+1)(c_lN^3/2-1)c_{15}^2N^{-4}\ge c_lc_{15}^2/2=:c_{14}$ for large $N$, and the window lies in $[1,c_{13}N^3]$. The printed version of this step, (4.112) of \cite{DNNS}, uses the free kernels; the count is of collisions before $\theta$, so the killed kernels are the right ones, and they are what Lemma~\ref{lem:low} bounds. In (4.91) of \cite{DNNS} the failure probability is at most $1/2$. Lemma~4.13 of \cite{DNNS} is stated for $N\ge N_1$, but it rests on Lemmas~4.5, 4.8 and~4.9, each with its own threshold. We apply it, and every estimate of this section, only for $N\ge N_*(\omega)$, the largest of the finitely many thresholds of the results used in this paper, which is a.s.\ finite.
+
+\section{Large times, a deterministic cap and finite range}\label{sec:basic}
+Throughout, $q_k(x,y)=P_x(X_k=y)$ denotes the $k$-step transition probability of the simple random walk on $\Comb(\Z,H)$, so that $q_k(x,y)=\deg(y)\,p_k(x,y)$ with $p_k$ the heat kernel (2.4) of \cite{DNNS}. Since $1\le\deg(y)\le3$, every bound on $p_k$ quoted from \cite{DNNS} holds for $q_k$ with the constant multiplied by at most $3$. For $z\in\Z$, $N\ge1$ and integers $0\le a<b$ put
+\[
+G_{[a,b]}(z)=\sum_{a\le k<b}\ \sum_{|y|\le N} q_k\bigl((z,0),(y,0)\bigr)^2,
+\]
+the expected number of collisions on the backbone segment $[-N,N]\times\{0\}$ during the times $[a,b)$ of two independent walks started together at $(z,0)$.
+
+\begin{lemma}[large times]\label{lem:large}
+Fix $\delta\in(0,1)$ and $C_0>0$. For $\PP$-a.e.\ environment there is $N_2$ such that for $N\ge N_2$, all $|z|\le N$ and all $T\le C_0N^3$,
+\[
+G_{[N^\delta,T]}(z)\le C\log N .
+\]
+\end{lemma}
+
+\begin{proof}
+Let $n\ge N^\delta$ and $\ell=n^{1/3}$. Lemma~\ref{lem:gen} needs $\delta_3<\delta_4/2$, its diagonal input being Lemma~4.10 for times at least $N^{\delta_3}$. We take $\delta_3=\delta/3$ and $\delta_4=3\delta/4$, so that $\delta_3<\delta_4/2$ and $\delta_4<\delta$, and the lemma then gives $q_n((z,0),(y,0))\le c_{12}n^{-2/3}$ for all $|y|\le N$, and Lemma~\ref{lem:off} gives $q_n((z,0),(y,0))\le c_{11}|y-z|^{-2}$ when $|y-z|\ge\ell$. Hence
+\[
+\sum_{|y|\le N} q_n\bigl((z,0),(y,0)\bigr)\le(2\ell+1)\,c_{12}\,n^{-2/3}+2c_{11}\sum_{k\ge\ell}k^{-2}\le C n^{-1/3},
+\]
+and therefore $\sum_{|y|\le N}q_n^2\le c_{12}n^{-2/3}\cdot Cn^{-1/3}=C/n$. Summing over $N^\delta\le n<T\le C_0N^3$ gives $C\log N$.
+\end{proof}
+
+\begin{lemma}[deterministic cap]\label{lem:cap}
+On every comb, $\sup_{x,y}q_k(x,y)\le Ck^{-1/2}$ for $k\ge1$; hence $G_{[a,b]}(z)\le 1+Cb^{1/2}$ for every $z$.
+\end{lemma}
+
+\begin{proof}
+The walk is simple and does not pause, and the comb is a tree, so the walk is bipartite with colour classes $V_0,V_1$ and the transition operator $P$ has $-1$ in its spectrum. We therefore work with $Q=P^2$, which maps functions on $V_i$ to functions on $V_i$. On $\ell^2(V_i,\deg)$ it is self-adjoint and positive, since $\langle Qf,f\rangle_{\deg}=\|Pf\|_{\deg}^2$.
+
+Let $\Gamma_i$ be the graph on $V_i$ in which two vertices are adjacent when their distance in the comb is $2$. Taking every second vertex of an even path shows that $\Gamma_i$ is connected; it is infinite and has degrees at most $6$, so every finite $A\subset V_i$ has an edge of $\Gamma_i$ leaving it. Since $Q(x,y)\ge1/9$ on the edges of $\Gamma_i$ and $1\le\deg\le3$, the Dirichlet form
+\[
+\mathcal E_Q(f,f)=\tfrac12\sum_{x,y\in V_i}\deg(x)Q(x,y)\bigl(f(x)-f(y)\bigr)^2
+\]
+dominates a constant multiple of the Dirichlet form of $\Gamma_i$, and the argument of Coulhon and Saloff-Coste \cite{CSC} turns this one-dimensional isoperimetric inequality into the Nash inequality $\|f\|_2^6\le C\,\mathcal E_Q(f,f)\,\|f\|_1^4$ on $\ell^2(V_i,\deg)$.
+
+Fix $f$ with $\|f\|_1=1$ and put $u_j=\|Q^jf\|_2^2$. Since $Q\ge0$, the operators $I-Q$ and $I+Q\ge I$ commute and
+\[
+u_j-u_{j+1}=\bigl\langle(I-Q)(I+Q)Q^jf,Q^jf\bigr\rangle\ge\mathcal E_Q(Q^jf,Q^jf)\ge c\,u_j^3,
+\]
+using $\|Q^jf\|_1\le1$. Hence $u_j\le Cj^{-1/2}$, that is $\|Q^j\|_{1\to2}\le Cj^{-1/4}$, and by self-adjointness $\|Q^{2j}\|_{1\to\infty}\le Cj^{-1/2}$. Thus $q_{2m}(x,y)\le Cm^{-1/2}$ for $m\ge1$ (and $q_{2m}(x,y)=0$ when $x,y$ lie in different classes). For odd $k=2m+1\ge3$, $q_k(x,y)=\sum_uP(x,u)q_{2m}(u,y)\le Cm^{-1/2}$, and $k=1$ is trivial. So $\sup_{x,y}q_k(x,y)\le Ck^{-1/2}$ for $k\ge1$.
+
+Finally $\sum_y q_k(x,y)^2\le\sup_y q_k(x,y)\le Ck^{-1/2}$; the term $k=0$ contributes $1$, and summing over $1\le k<b$ gives the claim.
+\end{proof}
+
+\begin{lemma}[finite range]\label{lem:range}
+Let $m\ge1$ and let $q^{(z,m)}_k$ be the transition probability of the walk killed on leaving the backbone interval $[z-m,z+m]$ together with its teeth, and $G^{(z,m)}_{[a,b]}$ the corresponding sum. Then
+\[
+0\le G_{[a,b]}(z)-G^{(z,m)}_{[a,b]}(z)\le 4b\,e^{-m^2/(2b)},
+\]
+and $G^{(z,m)}_{[a,b]}(z)$ depends only on the teeth based in $[z-m,z+m]$.
+\end{lemma}
+
+\begin{proof}
+The backbone coordinate changes only at backbone vertices, and then by $\pm1$ with equal probability, so its sequence of jumps is a simple random walk on $\Z$, and by time $k$ it has made at most $k$ jumps. Doob's inequality for $e^{\lambda S_j}$ on each side gives $P(\max_{j\le k}|S_j|\ge m)\le 2e^{-m^2/(2k)}$. Write $q_k=q^{(z,m)}_k+r_k$ with $r_k\ge0$. Then
+\[
+\sum_y q_k^2-\sum_y\bigl(q^{(z,m)}_k\bigr)^2\le 2\sum_y q_k r_k\le 2\sum_y r_k\le 2P_{(z,0)}(\text{exit by time }k)\le 4e^{-m^2/(2k)},
+\]
+and summing over $k<b$ gives the bound. The second statement is clear, since the killed walk never leaves the given interval and its teeth.
+\end{proof}
+
+\section{The annealed bound at small times}\label{sec:lemmaA}
+For $\ell\ge1$ let $J_\ell=[\ell^3,8\ell^3)\cap\Z$ and
+\[
+S_\ell(z)=\sum_{k\in J_\ell}\ \sum_{y\in\Z}q_k\bigl((z,0),(y,0)\bigr)^2 .
+\]
+Since the tooth heights are i.i.d., the law of $S_\ell(z)$ under $\PP$ does not depend on $z$. The estimates of Section~\ref{sec:prelim} hold for $N$ beyond a threshold depending on $\omega$, and such a statement carries no rate in probability. The annealed bound below needs one, so we return to the environment events on which those estimates rest. We use the notation of Section~4 of \cite{DNNS}: $D^x_n$ is the backbone interval $[x-n,x+n]$ with its teeth, $\alpha,\eta,\varepsilon,\varepsilon_1$ are the parameters of Proposition~4.6, and $O_n(x)$ is the event (4.48).
+
+\begin{lemma}\label{lem:A0}
+Let $\ell\ge1$ and $m=\ell^{3/2}\log(\ell+2)$. There is an event $G_\ell$ with the following properties.
+\begin{enumerate}[label=(\roman*),leftmargin=*]
+\item $G_\ell$ depends only on the teeth based in $[-8m,8m]$.
+\item $\PP(G_\ell^c)\le C_q\ell^{-q}$ for every $q>0$.
+\item On $G_\ell$, estimate \ref{E:exit} holds for every interval with centre $|x_1|\le2m$ and half-width $\ell^{1/2}\le n\le4m$ and every $t\in(0,1]$, and estimate \ref{E:diag} holds for $|x_1|\le2m$ and $\ell^3/4\le n\le16\ell^3$, with constants that do not depend on $\ell$ or $\omega$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Proposition~4.6 of \cite{DNNS} bounds, for the box $D^x_n$, the probability of the event (4.29) that the walk spends less than $t^{1/2-\alpha}n^{3/2}$ on deep teeth before leaving the box, by $C_6\exp(-c_6t^{-\beta})$. Its proof uses the environment only through two events. For $t\in[n^{-\varepsilon},1]$ (Case~1) it is the quenched bound (4.44), which for fixed $(n,x,t)$ fails with $\PP$-probability at most $\exp(-cn^{\varepsilon_1/2})$ by the Bernstein bound (4.41)--(4.42). For $t<n^{-\varepsilon}$ (Case~2) it is $O_n(x)$, which by (4.47) and a union bound over its at most $2n+1$ subintervals fails with probability at most $(2n+1)\exp(-cn^{\varepsilon\gamma/12})$. Two details matter here.
+
+The step from (4.42) to (4.43) needs the threshold $t^{1/2-\alpha}n^{3/2}$ to be at most half the conditional mean (4.37), which is at least $(C/2)t^\eta n^{3/2}$. This holds for $t\le t_0$, where $t_0=2^{-j_0}$ is a fixed dyadic number with $t_0^{1/2-\alpha-\eta}\le C/4$, but not in general at $t=1$. For $t\in(t_0,1]$ the bound of Proposition~4.6 holds trivially once $C_6\ge\exp(c_6t_0^{-\beta})$, so (4.44) is used only for $t\le t_0$. Secondly, (4.44) is a statement for one $t$ at a time. We combine it first with the bounds (4.30) and (4.32) for the walk event $A(n,t)^c$, which carry no environment, and obtain a bound for the event (4.29) itself. That event grows with $t$: the depth threshold $\sqrt t\,n^{2/(1+\gamma)}$ of (4.29) increases with $t$, which removes eligible deep teeth, and so does the occupation threshold. Hence a bound at the points $t_j=2^{-j}$ gives the bound for $t\in[t_{j+1},t_j]$ with $c_6$ replaced by $2^{-\beta}c_6$. The intersection with $A(n,t)$, which is not monotone in $t$, is never interpolated.
+
+Let $G_\ell$ be the intersection, over all $|x|\le2m$ and $\ell^{3/8}\le n\le4m$, of the event (4.44) for $D^x_n$ at every $t_j\in[n^{-\varepsilon},t_0]$ and at $t=n^{-\varepsilon}$, and of $O_n(x)$. The event (4.44) for $D^x_n$ depends on the teeth in $[x-n,x+n]$, and $O_n(x)$ on those in $[x-n-L,x+n]$ with $L=O(n^{1/2})\le m$, which gives (i). There are $O(m^2\log m)$ events, each failing with probability at most $Cn\exp(-cn^{c'})$ with $c'=\min(\varepsilon_1/2,\varepsilon\gamma/12)$ and $n\ge\ell^{3/8}$, so
+\[
+\PP(G_\ell^c)\le Cm^3\log m\,\exp\bigl(-c\ell^{3c'/8}\bigr)\le C_q\ell^{-q}.
+\]
+For (iii), the only environment input of Lemma~4.7 of \cite{DNNS} is the first term of (4.66), which is Proposition~4.6 on the box $(x_1,n)$; the coupling (4.65) and the binomial bound (4.67) do not involve the environment. The cutoff for small $t$ in Section~\ref{sec:prelim} uses only $O_n(x)$. Lemma~4.10 uses Lemma~4.7 on the box $(x_1,Kn^{1/3})$ with a fixed $K$, whose half-width lies in $[\ell^{1/2},4m]$ for $\ell^3/4\le n\le16\ell^3$ and large $\ell$, together with the deterministic Green kernel. So on $G_\ell$ both estimates hold with deterministic constants.
+\end{proof}
+
+\begin{lemma}\label{lem:A}
+There is $C$ such that $\EE\,S_\ell(0)\le C$ and $\EE\,S_\ell(0)^2\le C$ for every $\ell\ge1$.
+\end{lemma}
+
+\begin{proof}
+Write $q_k(0,y)=q_k((0,0),(y,0))$ and fix $k\in J_\ell$ and $r=k^{1/3}$. On $G_\ell$ the Cauchy--Schwarz step in the proof of Lemma~\ref{lem:off}, with \ref{E:diag} at $0$ and at $y$, gives $q_k(0,y)\le Ck^{-2/3}$ for $|y|\le m$. For $r\le|y|\le m$ the proof of Lemma~\ref{lem:off} applies at time $k$: it uses \ref{E:exit} on intervals of half-width $\lfloor|y|/2\rfloor\in[\ell^{1/2},4m]$ centred at $0$ and at $y$, and \ref{E:diag} at the midpoint and at the endpoints, all of which hold on $G_\ell$. Hence $q_k(0,y)\le C|y|^{-2}$, and
+\[
+\sum_{|y|\le m}q_k(0,y)\le(2r+1)Ck^{-2/3}+2C\sum_{j\ge r}j^{-2}\le Ck^{-1/3}.
+\]
+The backbone coordinate of the walk performs a simple random walk on $\Z$ with at most $k$ steps by time $k$, so, as in the proof of Lemma~\ref{lem:range}, $\sum_{|y|>m}q_k(0,y)\le2e^{-m^2/(2k)}\le2e^{-(\log(\ell+2))^2/16}$. Therefore, on $G_\ell$,
+\[
+\sum_yq_k(0,y)^2\le\sup_{|y|\le m}q_k(0,y)\sum_{|y|\le m}q_k(0,y)+\sum_{|y|>m}q_k(0,y)\le\frac Ck+2e^{-(\log(\ell+2))^2/16},
+\]
+and summing over the $7\ell^3$ times of $J_\ell$ gives $S_\ell(0)\le C$, since $\ell^3e^{-(\log(\ell+2))^2/16}$ is bounded. Off $G_\ell$, Lemma~\ref{lem:cap} gives $\sum_yq_k(0,y)^2\le Ck^{-1/2}$, so $S_\ell(0)\le C\ell^{3/2}$. By Lemma~\ref{lem:A0}(ii),
+\[
+\EE\,S_\ell(0)\le C+C\ell^{3/2}\PP(G_\ell^c)\le C,\qquad \EE\,S_\ell(0)^2\le C+C\ell^3\PP(G_\ell^c)\le C. \qedhere
+\]
+\end{proof}
+
+The next lemma replaces the uniform small-time bound of \cite{DNNS} by a bound on the spatial average.
+
+\begin{lemma}\label{lem:small}
+Fix $\delta\in(0,1)$. For $\PP$-a.e.\ environment there is $N_3$ such that for $N\ge N_3$,
+\[
+\sum_{|z|\le N}G_{[1,N^\delta]}(z)\le CN\log N .
+\]
+\end{lemma}
+
+\begin{proof}
+Let $\ell_j=2^j$ for $0\le j\le j_N$, where $j_N$ is the largest $j$ with $\ell_j^3<N^\delta$, so that $j_N+1\le\log_2N$. The blocks $J_{\ell_j}=[\ell_j^3,8\ell_j^3)$ cover $[1,N^\delta)$, hence $G_{[1,N^\delta]}(z)\le\sum_{j\le j_N}c_j(z)$ with $c_j(z)=G_{J_{\ell_j}}(z)$, the sum over the times of $J_{\ell_j}$ and the sites $|y|\le N$. Put $K=13(\log N)^{1/2}$, $m_j=K\ell_j^{3/2}$, and let $\tilde c_j(z)$ be the same sum for the walk killed on leaving the backbone interval $[z-m_j,z+m_j]$ together with its teeth.
+
+By Lemma~\ref{lem:range} with $b=8\ell_j^3\le8N^\delta$ and $m_j^2/(2b)=K^2/16\ge10\log N$,
+\[
+0\le c_j(z)-\tilde c_j(z)\le32N^{\delta}N^{-10},
+\]
+so replacing every $c_j(z)$ by $\tilde c_j(z)$ changes the left side of the lemma by at most $C N^{1+\delta-10}\log N\le1$. By the same lemma, $\tilde c_j(z)$ depends only on the teeth based in $[z-m_j,z+m_j]$, so $\tilde c_j(z)$ and $\tilde c_j(z')$ are independent when $|z-z'|>2m_j$. Moreover $\tilde c_j(z)\le c_j(z)\le S_{\ell_j}(z)$, so Lemma~\ref{lem:A} and stationarity give $\EE\,\tilde c_j(z)\le C$ and $\EE\,\tilde c_j(z)^2\le C$ for every $z$. Hence, with $\Sigma_j=\sum_{|z|\le N}\tilde c_j(z)$,
+$\EE\,\Sigma_j\le C(2N+1)$ and
+\[
+\operatorname{Var}\Sigma_j\le\sum_{\substack{|z|,|z'|\le N\\ |z-z'|\le2m_j}}\bigl(\operatorname{Var}\tilde c_j(z)\operatorname{Var}\tilde c_j(z')\bigr)^{1/2}\le C(2N+1)(4m_j+1).
+\]
+Let $\Sigma=\sum_{j\le j_N}\Sigma_j$. Then $\EE\,\Sigma\le CN\log N$, and by Minkowski's inequality
+\[
+(\operatorname{Var}\Sigma)^{1/2}\le\sum_{j\le j_N}(\operatorname{Var}\Sigma_j)^{1/2}\le C(NK)^{1/2}\sum_{j\le j_N}\ell_j^{3/4}\le CN^{1/2+\delta/4}(\log N)^{1/4}.
+\]
+Chebyshev's inequality gives $\PP(\Sigma>\EE\,\Sigma+N\log N)\le CN^{-1+\delta/2}(\log N)^{-3/2}$, which is summable along $N=2^i$. By the Borel--Cantelli lemma, $\sum_{|z|\le N}G_{[1,N^\delta]}(z)\le\Sigma+1\le CN\log N$ for all large $N$ of the form $2^i$. The left side of the lemma is non-decreasing in $N$, since the range of $z$, the range of the sites $y$ and the time range all grow with $N$. For $2^i\le N<2^{i+1}$ it is therefore at most $C2^{i+1}\log2^{i+1}\le 2CN\log(2N)$.
+\end{proof}
+
+\section{Proof of the main theorem}\label{sec:proof}
+Fix $\delta=1/2$ in Lemmas~\ref{lem:large} and~\ref{lem:small}, and let $c_l,c_u,b$ be the constants of Lemma~\ref{lem:low}; enlarging $b$ keeps that lemma true, so we take $b\ge2$ to be an integer. Let $X,Y$ be independent simple random walks on $\Comb(\Z,H)$ and write $P^\omega_{v,w}$ for their joint law started from $(v,w)$. For $N\ge1$ and starts $v,w$ let $\theta_N$ be the first time at which $X$ or $Y$ leaves $B_b$, and
+\[
+H'_N=\sum_{c_lN^3\le n\le c_uN^3}\mathbf 1_{C_n},\qquad C_n=\bigl\{X_n=Y_n=(x,0)\text{ for some }|x|\le N,\ n<\theta_N\bigr\}.
+\]
+
+\begin{lemma}\label{lem:moments}
+For $\PP$-a.e.\ $\omega$ there are $C$ and $N_4$ such that for $N\ge N_4$ and all $v,w\in S_N$ with $d(v,w)$ even,
+\[
+c_{14}\le E^\omega_{v,w}H'_N\le C,\qquad E^\omega_{v,w}\bigl[(H'_N)^2\bigr]\le C\log N .
+\]
+\end{lemma}
+
+\begin{proof}
+The lower bound is the form of \ref{E:first} proved after Lemma~\ref{lem:low}. For the upper bounds, apply Lemma~\ref{lem:gen} with $2N$ in place of $N$: since $v,w\in S_N$ have backbone coordinate at most $2N$ in absolute value and $n\ge c_lN^3\ge(2N)^{\delta_4}$ for large $N$, we get $q_n(v,(x,0))\le c_{12}n^{-2/3}$ and $q_n(w,(x,0))\le c_{12}n^{-2/3}$ for $|x|\le N$ and $n$ in the window. Dropping the restriction $n<\theta_N$ and using independence,
+\[
+E^\omega_{v,w}H'_N\le\sum_{c_lN^3\le n\le c_uN^3}\ \sum_{|x|\le N}q_n\bigl(v,(x,0)\bigr)q_n\bigl(w,(x,0)\bigr)\le(c_uN^3+1)(2N+1)\,c_{12}^2(c_lN^3)^{-4/3}\le C .
+\]
+For the second moment write $W=[c_lN^3,c_uN^3]\cap\Z$, so that
+\[
+E^\omega_{v,w}\bigl[(H'_N)^2\bigr]=E^\omega_{v,w}H'_N+2\sum_{n<n'\text{ in }W}P^\omega_{v,w}(C_n\cap C_{n'}).
+\]
+Fix $n<n'$ in $W$ and put $k=n'-n$, so that $1\le k<c_uN^3$. Dropping the restriction to times before $\theta_N$ and applying the Markov property of the pair at time $n$,
+\[
+\begin{aligned}
+P^\omega_{v,w}(C_n\cap C_{n'})&\le\sum_{|x|\le N}q_n\bigl(v,(x,0)\bigr)q_n\bigl(w,(x,0)\bigr)\sum_{|y|\le N}q_k\bigl((x,0),(y,0)\bigr)^2\\
+&\le c_{12}^2n^{-4/3}\sum_{|x|\le N}\ \sum_{|y|\le N}q_k\bigl((x,0),(y,0)\bigr)^2 .
+\end{aligned}
+\]
+The first kernels are bounded uniformly in $x$, so the collision site $x$ is summed rather than maximised over. Summing over $n'>n$ in $W$ gives at most $c_{12}^2n^{-4/3}\sum_{|x|\le N}G_{[1,c_uN^3]}(x)$, and then summing over $n\in W$, which has at most $c_uN^3+1$ elements each with $n^{-4/3}\le(c_lN^3)^{-4/3}$,
+\[
+\sum_{n<n'\text{ in }W}P^\omega_{v,w}(C_n\cap C_{n'})\le\frac CN\sum_{|x|\le N}\Bigl(G_{[1,N^{1/2}]}(x)+G_{[N^{1/2},c_uN^3]}(x)\Bigr).
+\]
+By Lemma~\ref{lem:small} the first sum is at most $CN\log N$, and by Lemma~\ref{lem:large} with $C_0=c_u$ each term of the second is at most $C\log N$, so the second sum is at most $(2N+1)C\log N$. Hence $E^\omega_{v,w}[(H'_N)^2]\le C+C\log N\le C\log N$. Every estimate used holds for $N$ beyond an a.s.\ finite threshold, uniformly in $v,w\in S_N$, and $N_4$ is the largest of these thresholds.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:main}]
+Fix an environment in the full-measure set on which Lemma~\ref{lem:moments} and the results it uses hold, and vertices $v,w$ at even distance. Each step changes the colour class of each walk, so $d(X_n,Y_n)$ is even for every $n$.
+
+Let $N_m=b^m$, and for $m\ge1$ let $\sigma_m$ be the first time at which $X$ or $Y$ leaves $R_{N_m}(N_m^{3/2})$. The walk is irreducible and this set is finite, so $\sigma_m<\infty$ almost surely; moreover $\sigma_m\le\sigma_{m+1}$. Let $\mathcal F_m$ be the $\sigma$-field generated by both walks up to time $\sigma_m$, and
+\[
+\mathrm{Col}_m=\bigl\{X_n=Y_n\text{ for some }n\in[\sigma_m,\sigma_{m+1})\bigr\}\in\mathcal F_{m+1}.
+\]
+Let $m_0$ be the least $m$ such that $N_m\ge N_4$ and $v,w\in R_{N_m}(N_m^{3/2})$; it is finite because $N_m\to\infty$. For $m\ge m_0$ both walks start in $R_{N_m}(N_m^{3/2})$, so $\sigma_m\ge1$ and at time $\sigma_m$ each walk is in $R_{N_m}(N_m^{3/2})$ or one step outside it, so their backbone coordinates are at most $N_m+1\le2N_m-1$ in absolute value and their heights at most $N_m^{3/2}+1\le(2N_m)^{3/2}$; thus $X_{\sigma_m},Y_{\sigma_m}\in S_{N_m}$, and their distance is even. Since $b$ is an integer, the box $B_b$ at scale $N_m$ is $R_{N_{m+1}}(N_{m+1}^{3/2})$, and it contains $S_{N_m}$ because $b\ge2$. Hence the walks restarted at $\sigma_m$ first leave $B_b$ exactly at time $\sigma_{m+1}$, and every collision counted by $H'_{N_m}$ for the restarted walks occurs in $[\sigma_m,\sigma_{m+1})$. By the strong Markov property, the Paley--Zygmund inequality and Lemma~\ref{lem:moments}, for $m\ge m_0$,
+\[
+P^\omega_{v,w}\bigl(\mathrm{Col}_m\,\big|\,\mathcal F_m\bigr)\ge\min_{\substack{x,y\in S_{N_m}\\ d(x,y)\text{ even}}}P^\omega_{x,y}\bigl(H'_{N_m}\ge1\bigr)\ge\min_{\substack{x,y\in S_{N_m}\\ d(x,y)\text{ even}}}\frac{\bigl(E^\omega_{x,y}H'_{N_m}\bigr)^2}{E^\omega_{x,y}\bigl[(H'_{N_m})^2\bigr]}\ge\frac{c_{14}^2}{C\,m\log b}.
+\]
+The right side is not summable in $m$. For $k\ge2$ the display bounds $P(B_k\mid\mathcal G_{k-1})$ with $m=m_0+k-1$, and for $k=1$ the unconditional probability $P(B_1)$ is the mean of the conditional one, so it obeys the same bound. By L\'evy's extension of the Borel--Cantelli lemma (see, e.g., \cite[Theorem~4.3.4]{Durrett}), applied to the filtration $\mathcal G_0=\{\emptyset,\Omega\}$, $\mathcal G_k=\mathcal F_{m_0+k}$ $(k\ge1)$ and the events $B_k=\mathrm{Col}_{m_0+k-1}\in\mathcal G_k$, with $m_0$ as above, almost surely $\mathrm{Col}_m$ occurs for infinitely many $m$. The intervals $[\sigma_m,\sigma_{m+1})$ are disjoint, so the walks collide infinitely often. Taking $v=w$ gives the infinite collision property.
+\end{proof}
+
+\section*{Acknowledgements and funding}
+The research presented in this paper was supported by the European Research
+Council (ERC) under the European Union's Horizon Europe research and
+innovation programme (grant agreement No.~101041711), by the Simons
+Foundation as part of the Collaboration on the Mathematical and Scientific
+Foundations of Deep Learning, by Heights Labs, by Convex Nexus Capital, by
+the Israel Science Foundation (grant number 2258/19), and by the Israel
+Science Foundation (ISF Grant 4101/25). Computational resources were
+provided in part by Google Cloud through its education credits program
+(credit 530550103).
+
+This work was done by multiple AI agents, Claude (Anthropic) and Codex (OpenAI), connected to Math Brain~\cite{MathBrainRepo} and working together inside the Brain framework~\cite{BrainFramework}, a shared, persistent memory in which the agents record claims, proofs, failed attempts and methods, retrieve one another's results, coordinate who works on what, and audit each other's work. For more on the details behind the Brain and Math Brain, see the Math Brain paper~\cite{MathBrainPaper}, the Math Brain repository~\cite{MathBrainRepo} and the Brain framework repository~\cite{BrainFramework}.
+
+\section*{Declaration of competing interest}
+The author holds equity in Heights Labs and in Convex Nexus Capital and
+has a management role at Convex Nexus Capital. These entities are included
+in the funding declaration above.
+
+\section*{Declaration of generative AI and AI-assisted technologies}
+The paper comes out of Math Brain, an ongoing project on the use of AI systems for research mathematics. In November 2026 Claude Opus~5.5 (Anthropic), working in Claude Code, found the proof of Theorem~\ref{thm:main} and wrote the paper; three independent reviews of the proof were carried out by Codex (OpenAI, GPT-6.1). The author directed the work and is responsible for the content of the paper and for decisions concerning its dissemination.
+
+\section*{Data availability}
+No data were used, and no result of the paper depends on computation. The \LaTeX{} source of the paper and a short script that computes the truncated backbone collision Green function of the lazy walk on sampled combs with $\gamma=1/3$, as a numerical sanity check, are available at\\ \url{https://github.com/yspennstate/comb-collisions-critical-exponent}.
+
+The paper is part of the Math Brain project, whose public repository is \url{https://github.com/yspennstate/math-brain-public}~\cite{MathBrainRepo}.
+
+\begin{thebibliography}{9}
+\bibitem{DNNS} U.~De Ambroggio, J.~Ng, M.~Nitzschner and C.~Scali, \emph{On the phase transition for the number of collisions on comb graphs}, preprint, arXiv:2609.05343, 2026.
+\bibitem{BPS} M.~T.~Barlow, Y.~Peres and P.~Sousi, \emph{Collisions of random walks}, Ann.\ Inst.\ Henri Poincar\'e Probab.\ Stat.\ \textbf{48} (2012), 922--946.
+\bibitem{KP} M.~Krishnapur and Y.~Peres, \emph{Recurrent graphs where two independent random walks collide finitely often}, Electron.\ Commun.\ Probab.\ \textbf{9} (2004), 72--81.
+\bibitem{Durrett} R.~Durrett, \emph{Probability: Theory and Examples}, 5th ed., Cambridge University Press, Cambridge, 2019.
+\bibitem{CSC} T.~Coulhon and L.~Saloff-Coste, \emph{Isop\'erim\'etrie pour les groupes et les vari\'et\'es}, Rev.\ Mat.\ Iberoam.\ \textbf{9} (1993), 293--314.
+\bibitem{MathBrainRepo} Y.~Shmalo, \emph{Math Brain: public snapshot, code and tests}, 2026, \url{https://github.com/yspennstate/math-brain-public}.
+\bibitem{MathBrainPaper} Y.~Shmalo, \emph{Math Brain: shared, auditable memory for multi-agent mathematical research}, October 2026, \url{https://github.com/yspennstate/math-brain-public/tree/main/papers/math-brain-2026-10-24}.
+\bibitem{BrainFramework} Y.~Shmalo, \emph{Brain Framework}, public software repository, 2026, \url{https://github.com/yspennstate/brain-framework-public}.
+\end{thebibliography}
+\end{document}
