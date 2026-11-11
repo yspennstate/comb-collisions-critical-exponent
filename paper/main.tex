@@ -35,13 +35,13 @@ Let $\Comb(\Z,H)$ be the comb obtained by attaching to each $x\in\Z$ a tooth of 
 \maketitle
 
 \section{Introduction}\label{sec:intro}
-A connected, locally finite graph has the \emph{infinite collision property} if two independent discrete-time simple random walks started at the same vertex are at the same vertex at the same time infinitely often, almost surely; otherwise, by a $0$--$1$ law, they meet only finitely often almost surely, and neither alternative depends on the starting vertex \cite{BPS}. Recurrence is not enough: Krishnapur and Peres \cite{KP} showed that the comb $\Comb(\Z,\infty)$, with an infinite tooth at every site, has the finite collision property.
+A connected, locally finite graph has the \emph{infinite collision property} if two independent discrete-time simple random walks started at the same vertex are at the same vertex at the same time infinitely often, almost surely; otherwise, by a $0$--$1$ law, they meet only finitely often almost surely, and neither alternative depends on the starting vertex \cite{BPS}. Recurrence is not enough: Krishnapur and Peres \cite{KP} showed that the comb $\Comb(\Z,\infty)$, with an infinite tooth at every site, has the finite collision property. Chen, Wei and Zhang \cite{CWZ} and Chen and Chen \cite{CC} gave growth conditions on the tooth heights under which a comb over $\Z$ has the infinite collision property, and Hutchcroft and Peres \cite{HP} proved the infinite collision property for every recurrent reversible random rooted graph.
 
 For a profile $H\colon\Z\to[0,\infty)$ the comb $\Comb(\Z,H)$ has vertex set $\{(x,\ell)\in\Z\times\{0,1,2,\dots\}:\ell\le H_x\}$, the backbone edges $\{(x,0),(x+1,0)\}$ and the tooth edges $\{(x,\ell),(x,\ell+1)\}$. De Ambroggio, Ng, Nitzschner and Scali \cite{DNNS} studied the random profile in which the $H_x$ are i.i.d.\ with
 \begin{equation}\label{eq:tail}
 \PP(H_0>z)\sim Cz^{-\gamma}\qquad(z\to\infty),\quad \gamma\in(0,1],
 \end{equation}
-and proved that for $\PP$-almost every profile the comb has the infinite collision property when $\gamma>1/3$ and the finite collision property when $\gamma<1/3$. They conjectured that the boundary case $\gamma=1/3$ belongs to the first regime. We prove this.
+and proved that for $\PP$-almost every profile the comb has the infinite collision property when $\gamma>1/3$ and the finite collision property when $\gamma<1/3$. They conjectured that the boundary case $\gamma=1/3$ belongs to the first regime. We prove this. The corresponding phase transition for combs over recurrent planar base graphs was found by De Ambroggio, Nitzschner and Scali \cite{DNS}, and three walks on a comb were treated by Croydon and De Ambroggio \cite{CD}.
 
 \begin{theorem}\label{thm:main}
 Let the $H_x$ be i.i.d.\ and satisfy \eqref{eq:tail} with $\gamma=1/3$. For $\PP$-almost every profile and all vertices $v,w$ of $\Comb(\Z,H)$ at even graph distance, two independent simple random walks started at $v$ and $w$ collide infinitely often almost surely. In particular $\Comb(\Z,H)$ has the infinite collision property.
@@ -369,10 +369,15 @@ No data were used, and no result of the paper depends on computation. The \LaTeX
 
 The paper is part of the Math Brain project, whose public repository is \url{https://github.com/yspennstate/math-brain-public}~\cite{MathBrainRepo}.
 
-\begin{thebibliography}{9}
+\begin{thebibliography}{99}
 \bibitem{DNNS} U.~De Ambroggio, J.~Ng, M.~Nitzschner and C.~Scali, \emph{On the phase transition for the number of collisions on comb graphs}, preprint, arXiv:2609.05343, 2026.
 \bibitem{BPS} M.~T.~Barlow, Y.~Peres and P.~Sousi, \emph{Collisions of random walks}, Ann.\ Inst.\ Henri Poincar\'e Probab.\ Stat.\ \textbf{48} (2012), 922--946.
 \bibitem{KP} M.~Krishnapur and Y.~Peres, \emph{Recurrent graphs where two independent random walks collide finitely often}, Electron.\ Commun.\ Probab.\ \textbf{9} (2004), 72--81.
+\bibitem{CC} X.~Chen and D.~Chen, \emph{Some sufficient conditions for infinite collisions of simple random walks on a wedge comb}, Electron.\ J.\ Probab.\ \textbf{16} (2011), 1341--1355.
+\bibitem{CWZ} D.~Chen, B.~Wei and F.~Zhang, \emph{A note on the finite collision property of random walks}, Statist.\ Probab.\ Lett.\ \textbf{78} (2008), 1742--1747.
+\bibitem{CD} D.~A.~Croydon and U.~De Ambroggio, \emph{Triple collisions on a comb graph}, preprint, arXiv:2410.04882, 2024.
+\bibitem{DNS} U.~De Ambroggio, M.~Nitzschner and C.~Scali, \emph{Collisions of random walks on comb graphs with a planar base}, preprint, arXiv:2508.19814, 2025.
+\bibitem{HP} T.~Hutchcroft and Y.~Peres, \emph{Collisions of random walks in reversible random graphs}, Electron.\ Commun.\ Probab.\ \textbf{20} (2015), no.~63, 1--6.
 \bibitem{Durrett} R.~Durrett, \emph{Probability: Theory and Examples}, 5th ed., Cambridge University Press, Cambridge, 2019.
 \bibitem{CSC} T.~Coulhon and L.~Saloff-Coste, \emph{Isop\'erim\'etrie pour les groupes et les vari\'et\'es}, Rev.\ Mat.\ Iberoam.\ \textbf{9} (1993), 293--314.
 \bibitem{MathBrainRepo} Y.~Shmalo, \emph{Math Brain: public snapshot, code and tests}, 2026, \url{https://github.com/yspennstate/math-brain-public}.
