@@ -133,6 +133,18 @@ q^{B_b}_{2j}(w,w)\ge c_8(2j)^{-2/3},\qquad N^{\delta_2}\le 2j\le C_uN^3,
 \end{equation}
 with $c_8$ not depending on $C_u$. Only this backbone case is used. Second, in Lemma~4.9 the window constant $c_l$ is chosen after the enlargement of the rectangle and grows with it, while the enlargement must contain a box of backbone radius of order $c_l^{1/3}N$; in that order the constants are circular. We separate the box in which the walk must reach its target from the box on which it is killed, and choose the constants in the order $d$, $c_l$, $c_u$, $b$.
 
+\begin{lemma}\label{lem:vol}
+There is $C_V$, depending only on the law of $H_0$, such that for every $a\ge1$ and $\PP$-a.e.\ $\omega$, $|B_a|\le C_Va^2N^2$ for all $N$ beyond a finite threshold.
+\end{lemma}
+
+\begin{proof}
+Put $L=(aN)^{3/2}$ and $X_y=\min(H_y,L)+1$, so that $|B_a|\le\sum_{|y|\le aN}X_y$. By \eqref{eq:tail} there is $C_H$ with $\PP(H_0>z)\le C_Hz^{-1/3}$ for $z>0$, hence $\EE\min(H_0,L)=\int_0^L\PP(H_0>z)\,dz\le\frac32C_HL^{2/3}$ and $\EE\min(H_0,L)^2=\int_0^L2z\PP(H_0>z)\,dz\le\frac65C_HL^{5/3}$. The sum $S=\sum_{|y|\le aN}X_y$ has $2aN+1\le3aN$ independent terms, so $\EE S\le3aN(\frac32C_HaN+1)$ and $\operatorname{Var}S\le\frac{18}5C_H(aN)^{7/2}$, and each centred term is at most $L+1\le2(aN)^{3/2}$ in absolute value. Bernstein's inequality with deviation $a^2N^2$ gives
+\[
+\PP\bigl(S>\EE S+a^2N^2\bigr)\le\exp\Bigl(-\frac{a^4N^4}{2\bigl(\frac{18}5C_H(aN)^{7/2}+\frac23(aN)^{3/2}a^2N^2\bigr)}\Bigr)\le\exp\bigl(-c\,a^{1/2}N^{1/2}\bigr),
+\]
+with $c>0$ depending only on $C_H$. This is summable in $N$, and the Borel--Cantelli lemma gives $|B_a|\le S\le\EE S+a^2N^2\le C_Va^2N^2$ for all large $N$, with $C_V=\frac92C_H+4$.
+\end{proof}
+
 \begin{lemma}\label{lem:low}
 There are constants $0<c_l<c_u=2c_l$, $b\ge1$ and $c_{15}>0$ such that, for $\PP$-a.e.\ $\omega$ and $N$ beyond an a.s.\ finite threshold, for all $v\in S_N$, all backbone $w=(w_1,0)$ with $|w_1|\le N$, and all $n\in[c_lN^3,c_uN^3]$ with $n-d(v,w)$ even,
 \[
@@ -141,7 +153,7 @@ q^{B_b}_n(v,w)\ge c_{15}N^{-2}.
 \end{lemma}
 
 \begin{proof}
-Let $\tau_w$ be the hitting time of $w$ and $\tau_A$ the exit time from a set $A$. Lemma~4.5 of \cite{DNNS}, applied with $2N$ in place of $N$, bounds $P_v(\tau_w>\tau_{B_{2a}})$ by $1/\varrho(a)$ for $v\in S_N$ and $w\in R_{2N}(2N)$, with $\varrho(a)\to\infty$; since the probability decreases as the box grows, there is an integer $d\ge2$ with $P_v(\tau_w<\tau_{B_d})\ge3/4$ for all $v$ and $w$ as in the statement. Once $d$ is fixed we bound $E_v[\tau_w\wedge\tau_{B_d}]$ in two stages. Let $v=(v_1,h)$. Until it reaches $(v_1,0)$ the walk moves on the tooth at $v_1$, a path of length at most $L=(dN)^{3/2}+1$ inside $B_d$ (reflected at the top if the tooth is shorter); by the gambler's ruin estimate the expected time to reach $(v_1,0)$ or leave $B_d$ is at most $2L^2\le8d^3N^3$. From $(v_1,0)$, the commute-time identity for the walk on $B_d$ with its exterior boundary glued to a single vertex, together with the volume bound $|B_d|\le C(d)N^2$ used in the proof of Lemma~4.9 and the resistance bound $R_{\rm eff}((v_1,0),w)\le|v_1-w_1|\le3N$, gives expected time at most $C(d)N^3$ to reach $w$ or leave $B_d$. By the strong Markov property, $E_v[\tau_w\wedge\tau_{B_d}]\le C'(d)N^3$; we rename $C'(d)$ as $C(d)$. With $c_l=4C(d)$, Markov's inequality gives $P_v(\tau_w\wedge\tau_{B_d}>c_lN^3)\le1/4$, hence
+Let $\tau_w$ be the hitting time of $w$ and $\tau_A$ the exit time from a set $A$. Lemma~4.5 of \cite{DNNS} states, in (4.20), that there is $\varrho$ with $\varrho(a)\to\infty$ as $a\to\infty$ such that for every $N\ge N_0(\omega)$ and every $a>0$ the maximum of $P_v(\tau_w>\tau_{R_{aN}((aN)^{3/2})})$ over $v\in R_N(N^{3/2})$ and $w\in R_N(N)$ is at most $1/\varrho(a)$; at $\gamma=1/3$ the height exponent $2/(\gamma+1)$ there equals $3/2$. Since the statement holds for every $N\ge N_0(\omega)$, it holds at $2N$, and it bounds $P_v(\tau_w>\tau_{B_{2a}})$ by $1/\varrho(a)$ uniformly over $v\in S_N$ and $w\in R_{2N}(2N)$; since the probability decreases as the box grows, there is an integer $d\ge2$ with $P_v(\tau_w<\tau_{B_d})\ge3/4$ for all $v$ and $w$ as in the statement. Once $d$ is fixed we bound $E_v[\tau_w\wedge\tau_{B_d}]$ in two stages. Let $v=(v_1,h)$. Until it reaches $(v_1,0)$ the walk moves on the tooth at $v_1$, a path of length at most $L=(dN)^{3/2}+1$ inside $B_d$ (reflected at the top if the tooth is shorter); by the gambler's ruin estimate the expected time to reach $(v_1,0)$ or leave $B_d$ is at most $2L^2\le8d^3N^3$. From $(v_1,0)$, the commute-time identity for the walk on $B_d$ with its exterior boundary glued to a single vertex, together with the volume bound of Lemma~\ref{lem:vol} (the glued graph has at most $|B_d|+2dN+3$ edges) and the resistance bound $R_{\rm eff}((v_1,0),w)\le|v_1-w_1|\le3N$, gives expected time at most $C(d)N^3$ to reach $w$ or leave $B_d$. By the strong Markov property, $E_v[\tau_w\wedge\tau_{B_d}]\le C'(d)N^3$; we rename $C'(d)$ as $C(d)$. With $c_l=4C(d)$, Markov's inequality gives $P_v(\tau_w\wedge\tau_{B_d}>c_lN^3)\le1/4$, hence
 \[
 P_v\bigl(\tau_w\le c_lN^3,\ \tau_w<\tau_{B_d}\bigr)\ge\tfrac12 .
 \]
